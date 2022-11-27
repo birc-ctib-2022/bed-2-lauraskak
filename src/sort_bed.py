@@ -16,7 +16,17 @@ def sort_file(table: Table) -> None:
         # You need to sort `features` with respect to chrom_start
         # and then updatte the table
         # FIXME: sort `features`
-        table[chrom] = features  # features should be sorted here
+        
+        for i in range(1, len(features)):
+            j = i
+            
+            while j > 0 and features[j-1].chrom_start > features[j].chrom_start:
+                features[j], features[j-1] = features[j-1], features[j]
+                j -= 1
+                
+        table[chrom] = features
+        print(features)
+
 
 
 def print_file(table: Table, outfile: TextIO) -> None:
@@ -48,7 +58,6 @@ def main() -> None:
     table = read_bed_file(args.infile)
     sort_file(table)
     print_file(table, args.outfile)
-
 
 if __name__ == '__main__':
     main()

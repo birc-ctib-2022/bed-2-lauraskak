@@ -60,7 +60,17 @@ Once you have implemented a lower bound search for the start of the range, imple
 
 *How do you use binary search to find the lower bound of a number? How did you have to modify the binary search algorithm?*
 
+- If you, instead of going through the positions in a linear fashion, always find the center of the interval and check is the index you are searching for is higher, lower or exactly right. In this case we can have more positions with the same start-value, so we have to check the positions upstream if you are looking for the lowerbound and downstream if you are looking for the upper bound. In that way we make sure we get the lowest possible index for the lower bound and the highest possible index for the upper bound. This method needs all positions to be a available. If you get to the last value but it is not the value you are searching for you accept this as the closes value to the upper or lower bound. 
+
+
 *Would anything be more difficult if the features covered ranges instead of single nucleotides (like real BED files)? What could go wrong, if anything?*
 
+- You would have to specify if you only accept features that are within the range or if you will accept features that are only partially inside the interval. 
+
+
 *We wrote a tool for merging two BED files, but what if we had a bunch of them? What would the complexity be if we merged them in, one at a time? What would the complexity be if we merged all of the files at the same time?*
+
+- Since the time complexity of merging two bedfiles is O(m + n), the for every time another bedline is merged you add that bedlines length and the sum of the last bedfiles length. For example if we had 4 bedfiles of length n, m, i and j, then the time complexity for merging them in that order would be; O(m + n + (m + n) + i + (m + n + i) + j).
+
+
 

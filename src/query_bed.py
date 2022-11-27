@@ -8,9 +8,20 @@ from bed import (
 )
 
 
-def extract_region(features: list[BedLine],
-                   start: int, end: int) -> list[BedLine]:
+def extract_region(features: list[BedLine], start: int, end: int) -> list[BedLine]:
     """Extract region chrom[start:end] and write it to outfile."""
+
+    bedline_list = []
+    for bedline in features:
+        if start <= bedline.chrom_start and bedline.chrom_end < end:
+            bedline_list.append(bedline)
+    return bedline_list
+            
+            
+                
+                
+            
+    
     return []  # FIXME: We want the actual region, not an empty list!
 
 
@@ -38,8 +49,7 @@ def main() -> None:
         # Extract the region from the chromosome, using your extract_region()
         # function. If you did your job well, this should give us the features
         # that we want.
-        region = extract_region(
-            features.get_chrom(chrom), int(start), int(end))
+        region = extract_region(features.get_chrom(chrom), int(start), int(end))
         for line in region:
             print_line(line, args.outfile)
 

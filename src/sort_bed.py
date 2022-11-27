@@ -25,7 +25,6 @@ def sort_file(table: Table) -> None:
                 j -= 1
                 
         table[chrom] = features
-        print(features)
 
 
 

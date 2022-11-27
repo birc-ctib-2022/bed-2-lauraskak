@@ -45,7 +45,7 @@ def merge(f1: list[BedLine], f2: list[BedLine], outfile: TextIO) -> None:
     l2 = len(f2)
     i = 0
     j = 0
-    while i < l1 or j < l2:
+    while i < l1 and j < l2:
         if f1[i].chrom == f2[j].chrom:
             if f1[i].chrom_start < f2[j].chrom_start:
                 print_output_line(f1[i], outfile)
@@ -61,11 +61,21 @@ def merge(f1: list[BedLine], f2: list[BedLine], outfile: TextIO) -> None:
         else: 
             if f1[i].chrom < f2[j].chrom:
                 print_output_line(f1[i], outfile)
+                print_line(f1[i], outfile)
                 i += 1
             else: 
                 print_output_line(f2[j], outfile)
+                print_line(f2[j], outfile)
                 j += 1
                 
+    while i < l1:
+        print_line(f1[i], outfile)
+        i += 1
+        
+    while j < l2:
+        print_line(f2[j], outfile)
+        j += 1
+        
             
 
 
